@@ -1,24 +1,25 @@
 # human_bytes
 
-[![Package Version](https://img.shields.io/hexpm/v/human_bytes)](https://hex.pm/packages/human_bytes)
-[![Hex Docs](https://img.shields.io/badge/hex-docs-ffaff3)](https://human-bytes.hexdocs.pm/)
+## 概要
 
-```sh
-gleam add human_bytes@1
-```
-```gleam
-import human_bytes
+バイト数を人間が読みやすい単位をつける
 
-pub fn main() -> Nil {
-  // TODO: An example of the project in use
-}
+
+## テスト
+
+```bash
+mise test
 ```
 
-Further documentation can be found at <https://human-bytes.hexdocs.pm/>.
+## ビルドと実行
 
-## Development
+```bash
+mise build
+```
 
-```sh
-gleam run   # Run the project
-gleam test  # Run the tests
+``` bash
+dist/human_bytes 123
+123 B
+dist/human_bytes 1234
+1.2 KiB
 ```
