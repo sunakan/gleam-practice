@@ -1,0 +1,104 @@
+#!/usr/bin/env bash
+# MISE description="NN_xxx/ 全てに .gitignore・mise-tasks/{test,build,e2e} を用意する（冪等）"
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+# 既存のタスクは手で育てている場合があるため、上書きせずスキップする
+write_if_absent() {
+  local path=$1 body=$2
+  if [[ -e "$path" ]]; then
+    echo "skip $path"
+    return
+  fi
+  mkdir -p "$(dirname "$path")"
+  printf '%s\n' "${body//@MISE@/MISE}" > "$path"
+  chmod +x "$path"
+  echo "make $path"
+}
+
+ensure_line() {
+  local file=$1 line=$2
+  touch "$file"
+  grep -qxF -- "$line" "$file" && return
+  # 末尾に改行が無いと、追記した行が前の行に連結されるため
+  if [[ -s "$file" && -n "$(tail -c1 "$file")" ]]; then
+    echo >> "$file"
+  fi
+  echo "$line" >> "$file"
+  echo "add  $file: $line"
+}
+
+# テンプレート内に "# MISE description" をそのまま書くと、mise がこのファイル自身の説明として拾うため @MISE@ で退避する
+test_template='#!/usr/bin/env bash
+# @MISE@ description="gleam test を実行"
+set -euo pipefail
+
+gleam test'
+
+build_template='#!/usr/bin/env bash
+# @MISE@ description="escript / erlang-shipment / JS を dist/ 配下に生成"
+set -euo pipefail
+
+mkdir -p dist
+
+gleam export escript
+mv -f @NAME@ dist/@NAME@
+
+gleam export erlang-shipment
+rm -rf dist/@NAME@_shipment
+cp -R build/erlang-shipment dist/@NAME@_shipment
+
+gleam build --target javascript
+rm -rf dist/@NAME@_js
+cp -R build/dev/javascript dist/@NAME@_js
+printf '"'"'import { main } from "./@NAME@/@NAME@.mjs";\nmain();\n'"'"' > dist/@NAME@_js/main.mjs'
+
+e2e_template='#!/usr/bin/env bash
+# @MISE@ description="dist/@NAME@（escript）の E2E テスト。先に build を実行する"
+# @MISE@ depends=["build"]
+set -euo pipefail
+
+bin=dist/@NAME@
+failed=0
+
+# args を配列にしないのは、引数なしのケースで macOS 標準の bash 3.2 が set -u で落ちるため
+check() {
+  local name=$1 want_code=$2 want_out=$3 want_err=$4 args=$5
+  local out err_file err code=0
+  err_file=$(mktemp)
+  # shellcheck disable=SC2086
+  out=$("$bin" $args 2>"$err_file") || code=$?
+  err=$(cat "$err_file")
+  rm -f "$err_file"
+
+  if [[ "$code" == "$want_code" && "$out" == "$want_out" && "$err" == "$want_err" ]]; then
+    echo "ok   $name"
+  else
+    echo "FAIL $name"
+    echo "  exit:   want=$want_code got=$code"
+    echo "  stdout: want=$want_out got=$out"
+    echo "  stderr: want=$want_err got=$err"
+    failed=1
+  fi
+}
+
+# check "名前" 期待する終了コード 期待する標準出力 期待する標準エラー "引数"
+# TODO: ケースを書く
+
+exit "$failed"'
+
+for dir in [0-9][0-9]_*/; do
+  dir=${dir%/}
+  [[ -f "$dir/gleam.toml" ]] || continue
+
+  # ディレクトリ名ではなく gleam.toml の name を正とする（バイナリ名と一致させるため）
+  name=$(sed -n 's/^name *= *"\(.*\)"/\1/p' "$dir/gleam.toml" | head -1)
+  echo "== $dir ($name)"
+
+  ensure_line "$dir/.gitignore" "/$name"
+  ensure_line "$dir/.gitignore" "/dist"
+  write_if_absent "$dir/mise-tasks/test" "$test_template"
+  write_if_absent "$dir/mise-tasks/build" "${build_template//@NAME@/$name}"
+  write_if_absent "$dir/mise-tasks/e2e" "${e2e_template//@NAME@/$name}"
+done
