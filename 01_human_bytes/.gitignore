@@ -3,4 +3,5 @@
 /build
 erl_crash.dump
 
-dist/
+/dist
+/human_bytes
