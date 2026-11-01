@@ -1,17 +1,19 @@
 #!/usr/bin/env bash
-# MISE description="escript を build/human_bytes に生成"
+# MISE description="escript / erlang-shipment / JS を dist/ 配下に生成"
 set -euo pipefail
 
-# escript: 出力先が固定（プロジェクト直下）のため、build/ へ移す
+mkdir -p dist
+
+# escript: 出力先が固定（プロジェクト直下）のため、dist/ へ移す
 gleam export escript
-mv -f human_bytes build/human_bytes
+mv -f human_bytes dist/human_bytes
 
 # erlang-shipment: 出力先は build/erlang-shipment 固定のため、名前を変えてコピーする
 gleam export erlang-shipment
-rm -rf build/human_bytes_shipment
-cp -R build/erlang-shipment build/human_bytes_shipment
+rm -rf dist/human_bytes_shipment
+cp -R build/erlang-shipment dist/human_bytes_shipment
 
 # JS: 依存が兄弟ディレクトリで相対参照されるため、build/dev/javascript を丸ごとコピーする
 gleam build --target javascript
-rm -rf build/human_bytes_js
-cp -R build/dev/javascript build/human_bytes_js
+rm -rf dist/human_bytes_js
+cp -R build/dev/javascript dist/human_bytes_js
