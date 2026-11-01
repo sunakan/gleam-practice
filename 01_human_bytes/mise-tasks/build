@@ -17,3 +17,6 @@ cp -R build/erlang-shipment dist/human_bytes_shipment
 gleam build --target javascript
 rm -rf dist/human_bytes_js
 cp -R build/dev/javascript dist/human_bytes_js
+
+# Gleam の JS 出力は main を export するだけで呼ばないため、node 用の入口を生成する
+printf 'import { main } from "./human_bytes/human_bytes.mjs";\nmain();\n' > dist/human_bytes_js/main.mjs

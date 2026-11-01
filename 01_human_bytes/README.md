@@ -23,3 +23,8 @@ dist/human_bytes 123
 dist/human_bytes 1234
 1.2 KiB
 ```
+
+```bash
+node dist/human_bytes_js/main.mjs 1234
+1.2 KiB
+```
