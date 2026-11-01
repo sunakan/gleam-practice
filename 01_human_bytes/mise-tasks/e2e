@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+# MISE description="dist/human_bytes（escript）の E2E テスト。先に build を実行する"
+# MISE depends=["build"]
+set -euo pipefail
+
+bin=dist/human_bytes
+failed=0
+
+# args を配列にしないのは、引数なしのケースで macOS 標準の bash 3.2 が set -u で落ちるため
+check() {
+  local name=$1 want_code=$2 want_out=$3 want_err=$4 args=$5
+  local out err_file err code=0
+  err_file=$(mktemp)
+  # shellcheck disable=SC2086
+  out=$("$bin" $args 2>"$err_file") || code=$?
+  err=$(cat "$err_file")
+  rm -f "$err_file"
+
+  if [[ "$code" == "$want_code" && "$out" == "$want_out" && "$err" == "$want_err" ]]; then
+    echo "ok   $name"
+  else
+    echo "FAIL $name"
+    echo "  exit:   want=$want_code got=$code"
+    echo "  stdout: want=$want_out got=$out"
+    echo "  stderr: want=$want_err got=$err"
+    failed=1
+  fi
+}
+
+check "1536 は 1.5 KiB"       0 "1.5 KiB" ""                                 "1536"
+check "abc は数値エラー"      1 ""        "数値ではありません: abc"           "abc"
+check "引数なしは使い方"      1 ""        "使い方: human_bytes <bytes>"       ""
+
+exit "$failed"
