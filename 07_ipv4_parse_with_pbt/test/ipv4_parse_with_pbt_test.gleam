@@ -2,6 +2,7 @@ import gleam/int
 import gleam/list
 import gleam/string
 import gleeunit
+import ipv4_parse_with_pbt
 import ipv4_parse_with_pbt/ipv4.{
   EmptyOctet, LeadingZero, NotANumber, OutOfRange, WrongOctetCount,
 }
@@ -113,6 +114,17 @@ pub fn error_to_string_test() {
   assert ipv4.error_to_string(NotANumber("x")) == "数字ではありません: x"
   assert ipv4.error_to_string(LeadingZero("01")) == "先頭に0があります: 01"
   assert ipv4.error_to_string(OutOfRange(256)) == "範囲外です: 256"
+}
+
+//
+// 単体テスト: CLI の1行表示
+//
+pub fn format_line_test() {
+  assert ipv4_parse_with_pbt.format_line("192.168.0.1") == "192.168.0.1 ok"
+  assert ipv4_parse_with_pbt.format_line("1.2.3.256")
+    == "1.2.3.256 error: 範囲外です: 256"
+  assert ipv4_parse_with_pbt.format_line("a.b.c.d")
+    == "a.b.c.d error: 数字ではありません: a"
 }
 
 //
