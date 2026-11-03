@@ -28,6 +28,21 @@ check() {
 }
 
 # check "名前" 期待する終了コード 期待する標準出力 期待する標準エラー "引数"
-# TODO: ケースを書く
+check "抜粋ログの期間" 0 "entries: 30
+start: 2026-10-03T07:40:43.106011Z
+end: 2026-10-03T07:40:56.718644Z
+duration: 13s
+skipped: 0" "" "testdata/slow.log"
+
+check "読めない時刻とSQL中の文字列" 0 "entries: 2
+start: 2026-10-03T07:00:00Z
+end: 2026-10-03T07:01:05Z
+duration: 1m5s
+skipped: 1" "" "testdata/broken.log"
+
+check "有効なエントリがない" 1 "" "有効なエントリがありません" "testdata/no_entries.log"
+check "存在しないファイル" 1 "" "No such file or directory" "testdata/nothing.log"
+check "引数なしは使い方" 1 "" "使い方: mysql_slowquerylog_duration <スロークエリログのパス>" ""
+check "引数が多すぎる" 1 "" "使い方: mysql_slowquerylog_duration <スロークエリログのパス>" "a b"
 
 exit "$failed"

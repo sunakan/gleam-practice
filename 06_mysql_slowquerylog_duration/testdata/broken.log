@@ -1,0 +1,6 @@
+# Time: 2026-10-03T07:00:00Z
+SELECT 1;
+# Time: not-a-time
+SELECT '# Time: x';
+# Time: 2026-10-03T07:01:05Z
+SELECT 2;
