@@ -48,7 +48,8 @@ fn parse_octet(octet: String) -> Result(Int, Ipv4Error) {
   case int.parse(octet) {
     Ok(n) if n <= 255 -> Ok(n)
     Ok(n) -> Error(OutOfRange(n))
-    Error(Nil) -> Error(NotANumber(octet)) // 上でチェックしているので、到達しない
+    Error(Nil) -> Error(NotANumber(octet))
+    // 上でチェックしているので、到達しない
   }
 }
 
