@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# MISE description="escript / erlang-shipment / JS を dist/ 配下に生成"
+set -euo pipefail
+
+mkdir -p dist
+
+gleam export escript
+mv -f vercmp dist/vercmp
+
+gleam export erlang-shipment
+rm -rf dist/vercmp_shipment
+cp -R build/erlang-shipment dist/vercmp_shipment
+
+gleam build --target javascript
+rm -rf dist/vercmp_js
+cp -R build/dev/javascript dist/vercmp_js
+printf 'import { main } from "./vercmp/vercmp.mjs";\nmain();\n' > dist/vercmp_js/main.mjs
