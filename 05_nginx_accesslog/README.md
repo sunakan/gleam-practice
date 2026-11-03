@@ -1,24 +1,56 @@
 # nginx_accesslog
 
-[![Package Version](https://img.shields.io/hexpm/v/nginx_accesslog)](https://hex.pm/packages/nginx_accesslog)
-[![Hex Docs](https://img.shields.io/badge/hex-docs-ffaff3)](https://nginx-accesslog.hexdocs.pm/)
+## 概要
 
-```sh
-gleam add nginx_accesslog@1
-```
-```gleam
-import nginx_accesslog
+nginx のアクセスログ（LTSV 形式）を読み、HTTP メソッドとステータスの組ごとに件数を数える
 
-pub fn main() -> Nil {
-  // TODO: An example of the project in use
-}
+
+## テスト
+
+```bash
+mise test
 ```
 
-Further documentation can be found at <https://nginx-accesslog.hexdocs.pm/>.
+```bash
+mise e2e
+```
 
-## Development
+## ビルドと実行
 
-```sh
-gleam run   # Run the project
-gleam test  # Run the tests
+```bash
+mise build
+```
+
+```bash
+dist/nginx_accesslog testdata/access.log
+17 POST 200
+6 GET 200
+5 POST 400
+3 GET 403
+3 GET 499
+3 POST 404
+2 GET 404
+2 POST 401
+2 POST 499
+1 GET 401
+skipped: 0
+```
+
+```bash
+node dist/nginx_accesslog_js/main.mjs testdata/access.log
+```
+
+## 入力
+
+LTSV（タブ区切りの `key:value`）の 1 行から `method` と `status` を使う。
+どちらかが無い行や、`status` が整数でない行は、壊れた行として数えてスキップする（`skipped`）。
+
+## ドキュメント
+
+```bash
+mise build-docs
+```
+
+```bash
+open dist/nginx_accesslog_docs/index.html
 ```
