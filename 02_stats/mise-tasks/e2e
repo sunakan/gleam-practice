@@ -28,6 +28,22 @@ check() {
 }
 
 # check "名前" 期待する終了コード 期待する標準出力 期待する標準エラー "引数"
-# TODO: ケースを書く
+check "集計" 0 "count: 5
+sum: 14
+min: 1
+max: 5
+mean: 2.8
+median: 3.0" "" "3 1 4 1 5"
+
+check "偶数個の中央値" 0 "count: 4
+sum: 10
+min: 1
+max: 4
+mean: 2.5
+median: 2.5" "" "1 2 3 4"
+
+check "不正な値" 1 "" "数値ではありません: x" "1 x 3"
+
+check "引数なしは使い方" 1 "" "使い方: stats <整数>..." ""
 
 exit "$failed"
