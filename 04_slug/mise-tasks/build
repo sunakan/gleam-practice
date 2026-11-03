@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# MISE description="escript / erlang-shipment / JS を dist/ 配下に生成"
+set -euo pipefail
+
+mkdir -p dist
+
+gleam export escript
+mv -f slug dist/slug
+
+gleam export erlang-shipment
+rm -rf dist/slug_shipment
+cp -R build/erlang-shipment dist/slug_shipment
+
+gleam build --target javascript
+rm -rf dist/slug_js
+cp -R build/dev/javascript dist/slug_js
+printf 'import { main } from "./slug/slug.mjs";\nmain();\n' > dist/slug_js/main.mjs
