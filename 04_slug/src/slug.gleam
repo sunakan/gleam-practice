@@ -43,7 +43,7 @@ fn collapse_separators(text: String) -> String {
 pub fn main() -> Nil {
   case argv.load().arguments {
     [] -> {
-      io.print_error("使い方: slug <文章>...")
+      io.println_error("使い方: slug <文章>...")
       halt(1)
     }
     arguments ->
