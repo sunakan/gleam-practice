@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# MISE description="NN_xxx/ 全てに .gitignore・mise-tasks/{test,build,e2e} を用意する（冪等）"
+# MISE description="NN_xxx/ 全てに .gitignore・mise-tasks/{test,build,build-docs,e2e} を用意する（冪等）"
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
@@ -88,6 +88,16 @@ check() {
 
 exit "$failed"'
 
+build_docs_template='#!/usr/bin/env bash
+# @MISE@ description="gleam docs build で HTML ドキュメントを dist/@NAME@_docs に生成"
+set -euo pipefail
+
+mkdir -p dist
+
+gleam docs build
+rm -rf dist/@NAME@_docs
+cp -R build/dev/docs/@NAME@ dist/@NAME@_docs'
+
 for dir in [0-9][0-9]_*/; do
   dir=${dir%/}
   [[ -f "$dir/gleam.toml" ]] || continue
@@ -101,4 +111,5 @@ for dir in [0-9][0-9]_*/; do
   write_if_absent "$dir/mise-tasks/test" "$test_template"
   write_if_absent "$dir/mise-tasks/build" "${build_template//@NAME@/$name}"
   write_if_absent "$dir/mise-tasks/e2e" "${e2e_template//@NAME@/$name}"
+  write_if_absent "$dir/mise-tasks/build-docs" "${build_docs_template//@NAME@/$name}"
 done
