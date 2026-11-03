@@ -1,11 +1,18 @@
+import argv
 import gleam/int
 import gleam/io
 import gleam/list
 import gleam/result
 import gleam/string
+import gleam/time/calendar
 import gleam/time/duration.{type Duration}
 import gleam/time/timestamp
 import mysql_slowquerylog_duration/period.{type Period}
+import simplifile
+
+@external(erlang, "erlang", "halt")
+@external(javascript, "./mysql_slowquerylog_duration_ffi.mjs", "halt")
+fn halt(code: Int) -> Nil
 
 pub fn format_duration(duration: Duration) -> String {
   let #(seconds, _) = duration.to_seconds_and_nanoseconds(duration)
@@ -53,6 +60,34 @@ pub fn summarize(lines: List(String)) -> Result(#(Period, Int, Int), String) {
   }
 }
 
+fn fail(message) -> Nil {
+  io.println_error(message)
+  halt(1)
+}
+
 pub fn main() -> Nil {
-  io.println("Hello from mysql_slowquerylog_duration!")
+  case argv.load().arguments {
+    [path] ->
+      case simplifile.read(path) {
+        Error(e) -> fail(simplifile.describe_error(e))
+        Ok(text) ->
+          case summarize(string.split(text, "\n")) {
+            Error(message) -> fail(message)
+            Ok(#(p, entry_count, skipped_count)) -> {
+              io.println("entries: " <> int.to_string(entry_count))
+              io.println(
+                "start: "
+                <> timestamp.to_rfc3339(period.start(p), calendar.utc_offset),
+              )
+              io.println(
+                "end: "
+                <> timestamp.to_rfc3339(period.end(p), calendar.utc_offset),
+              )
+              io.println("duration: " <> format_duration(period.duration(p)))
+              io.println("skipped: " <> int.to_string(skipped_count))
+            }
+          }
+      }
+    _ -> fail("使い方: mysql_slowquerylog_duration <スロークエリログのパス>")
+  }
 }
