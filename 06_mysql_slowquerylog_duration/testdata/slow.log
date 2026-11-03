@@ -1,0 +1,154 @@
+/usr/sbin/mysqld, Version: 8.4.10-0ubuntu0.26.04.1 ((Ubuntu)). started with:
+Tcp port: 3306  Unix socket: /var/run/mysqld/mysqld.sock
+Time                 Id Command    Argument
+# Time: 2026-10-03T07:40:43.106011Z
+# User@Host: isucon[isucon] @ localhost [127.0.0.1]  Id:     8
+# Query_time: 0.000233  Lock_time: 0.000000 Rows_sent: 0  Rows_examined: 0
+use isuride;
+SET timestamp=1791013243;
+# administrator command: Ping;
+# Time: 2026-10-03T07:40:43.110169Z
+# User@Host: isucon[isucon] @ localhost [127.0.0.1]  Id:     8
+# Query_time: 0.000003  Lock_time: 0.000000 Rows_sent: 0  Rows_examined: 0
+SET timestamp=1791013243;
+# administrator command: Quit;
+# Time: 2026-10-03T07:40:43.176014Z
+# User@Host: isucon[isucon] @ localhost [127.0.0.1]  Id:     9
+# Query_time: 0.000012  Lock_time: 0.000000 Rows_sent: 0  Rows_examined: 0
+SET timestamp=1791013243;
+# administrator command: Ping;
+# Time: 2026-10-03T07:40:43.546911Z
+# User@Host: isucon[isucon] @ localhost [127.0.0.1]  Id:     9
+# Query_time: 0.006955  Lock_time: 0.000007 Rows_sent: 0  Rows_examined: 750
+SET timestamp=1791013243;
+SELECT * FROM rides WHERE chair_id IS NULL ORDER BY created_at LIMIT 1;
+# Time: 2026-10-03T07:40:44.053648Z
+# User@Host: isucon[isucon] @ localhost [127.0.0.1]  Id:     9
+# Query_time: 0.000464  Lock_time: 0.000003 Rows_sent: 0  Rows_examined: 750
+SET timestamp=1791013244;
+SELECT * FROM rides WHERE chair_id IS NULL ORDER BY created_at LIMIT 1;
+# Time: 2026-10-03T07:40:44.560276Z
+# User@Host: isucon[isucon] @ localhost [127.0.0.1]  Id:     9
+# Query_time: 0.000488  Lock_time: 0.000002 Rows_sent: 0  Rows_examined: 750
+SET timestamp=1791013244;
+SELECT * FROM rides WHERE chair_id IS NULL ORDER BY created_at LIMIT 1;
+# Time: 2026-10-03T07:40:45.066963Z
+# User@Host: isucon[isucon] @ localhost [127.0.0.1]  Id:     9
+# Query_time: 0.000467  Lock_time: 0.000003 Rows_sent: 0  Rows_examined: 750
+SET timestamp=1791013245;
+SELECT * FROM rides WHERE chair_id IS NULL ORDER BY created_at LIMIT 1;
+# Time: 2026-10-03T07:40:45.573640Z
+# User@Host: isucon[isucon] @ localhost [127.0.0.1]  Id:     9
+# Query_time: 0.000474  Lock_time: 0.000003 Rows_sent: 0  Rows_examined: 750
+SET timestamp=1791013245;
+SELECT * FROM rides WHERE chair_id IS NULL ORDER BY created_at LIMIT 1;
+# Time: 2026-10-03T07:40:46.080408Z
+# User@Host: isucon[isucon] @ localhost [127.0.0.1]  Id:     9
+# Query_time: 0.000477  Lock_time: 0.000003 Rows_sent: 0  Rows_examined: 750
+SET timestamp=1791013246;
+SELECT * FROM rides WHERE chair_id IS NULL ORDER BY created_at LIMIT 1;
+# Time: 2026-10-03T07:40:46.586930Z
+# User@Host: isucon[isucon] @ localhost [127.0.0.1]  Id:     9
+# Query_time: 0.000470  Lock_time: 0.000003 Rows_sent: 0  Rows_examined: 750
+SET timestamp=1791013246;
+SELECT * FROM rides WHERE chair_id IS NULL ORDER BY created_at LIMIT 1;
+# Time: 2026-10-03T07:40:47.093563Z
+# User@Host: isucon[isucon] @ localhost [127.0.0.1]  Id:     9
+# Query_time: 0.000450  Lock_time: 0.000002 Rows_sent: 0  Rows_examined: 750
+SET timestamp=1791013247;
+SELECT * FROM rides WHERE chair_id IS NULL ORDER BY created_at LIMIT 1;
+# Time: 2026-10-03T07:40:47.600116Z
+# User@Host: isucon[isucon] @ localhost [127.0.0.1]  Id:     9
+# Query_time: 0.000506  Lock_time: 0.000003 Rows_sent: 0  Rows_examined: 750
+SET timestamp=1791013247;
+SELECT * FROM rides WHERE chair_id IS NULL ORDER BY created_at LIMIT 1;
+# Time: 2026-10-03T07:40:48.106626Z
+# User@Host: isucon[isucon] @ localhost [127.0.0.1]  Id:     9
+# Query_time: 0.000455  Lock_time: 0.000002 Rows_sent: 0  Rows_examined: 750
+SET timestamp=1791013248;
+SELECT * FROM rides WHERE chair_id IS NULL ORDER BY created_at LIMIT 1;
+# Time: 2026-10-03T07:40:48.613285Z
+# User@Host: isucon[isucon] @ localhost [127.0.0.1]  Id:     9
+# Query_time: 0.000497  Lock_time: 0.000002 Rows_sent: 0  Rows_examined: 750
+SET timestamp=1791013248;
+SELECT * FROM rides WHERE chair_id IS NULL ORDER BY created_at LIMIT 1;
+# Time: 2026-10-03T07:40:49.119989Z
+# User@Host: isucon[isucon] @ localhost [127.0.0.1]  Id:     9
+# Query_time: 0.000469  Lock_time: 0.000003 Rows_sent: 0  Rows_examined: 750
+SET timestamp=1791013249;
+SELECT * FROM rides WHERE chair_id IS NULL ORDER BY created_at LIMIT 1;
+# Time: 2026-10-03T07:40:49.626418Z
+# User@Host: isucon[isucon] @ localhost [127.0.0.1]  Id:     9
+# Query_time: 0.000468  Lock_time: 0.000003 Rows_sent: 0  Rows_examined: 750
+SET timestamp=1791013249;
+SELECT * FROM rides WHERE chair_id IS NULL ORDER BY created_at LIMIT 1;
+# Time: 2026-10-03T07:40:50.133134Z
+# User@Host: isucon[isucon] @ localhost [127.0.0.1]  Id:     9
+# Query_time: 0.000485  Lock_time: 0.000003 Rows_sent: 0  Rows_examined: 750
+SET timestamp=1791013250;
+SELECT * FROM rides WHERE chair_id IS NULL ORDER BY created_at LIMIT 1;
+# Time: 2026-10-03T07:40:50.639616Z
+# User@Host: isucon[isucon] @ localhost [127.0.0.1]  Id:     9
+# Query_time: 0.000477  Lock_time: 0.000003 Rows_sent: 0  Rows_examined: 750
+SET timestamp=1791013250;
+SELECT * FROM rides WHERE chair_id IS NULL ORDER BY created_at LIMIT 1;
+# Time: 2026-10-03T07:40:51.146308Z
+# User@Host: isucon[isucon] @ localhost [127.0.0.1]  Id:     9
+# Query_time: 0.000481  Lock_time: 0.000002 Rows_sent: 0  Rows_examined: 750
+SET timestamp=1791013251;
+SELECT * FROM rides WHERE chair_id IS NULL ORDER BY created_at LIMIT 1;
+# Time: 2026-10-03T07:40:51.652793Z
+# User@Host: isucon[isucon] @ localhost [127.0.0.1]  Id:     9
+# Query_time: 0.000460  Lock_time: 0.000003 Rows_sent: 0  Rows_examined: 750
+SET timestamp=1791013251;
+SELECT * FROM rides WHERE chair_id IS NULL ORDER BY created_at LIMIT 1;
+# Time: 2026-10-03T07:40:52.159522Z
+# User@Host: isucon[isucon] @ localhost [127.0.0.1]  Id:     9
+# Query_time: 0.000478  Lock_time: 0.000002 Rows_sent: 0  Rows_examined: 750
+SET timestamp=1791013252;
+SELECT * FROM rides WHERE chair_id IS NULL ORDER BY created_at LIMIT 1;
+# Time: 2026-10-03T07:40:52.665990Z
+# User@Host: isucon[isucon] @ localhost [127.0.0.1]  Id:     9
+# Query_time: 0.000455  Lock_time: 0.000003 Rows_sent: 0  Rows_examined: 750
+SET timestamp=1791013252;
+SELECT * FROM rides WHERE chair_id IS NULL ORDER BY created_at LIMIT 1;
+# Time: 2026-10-03T07:40:53.172503Z
+# User@Host: isucon[isucon] @ localhost [127.0.0.1]  Id:     9
+# Query_time: 0.000483  Lock_time: 0.000002 Rows_sent: 0  Rows_examined: 750
+SET timestamp=1791013253;
+SELECT * FROM rides WHERE chair_id IS NULL ORDER BY created_at LIMIT 1;
+# Time: 2026-10-03T07:40:53.679168Z
+# User@Host: isucon[isucon] @ localhost [127.0.0.1]  Id:     9
+# Query_time: 0.000507  Lock_time: 0.000003 Rows_sent: 0  Rows_examined: 750
+SET timestamp=1791013253;
+SELECT * FROM rides WHERE chair_id IS NULL ORDER BY created_at LIMIT 1;
+# Time: 2026-10-03T07:40:54.185742Z
+# User@Host: isucon[isucon] @ localhost [127.0.0.1]  Id:     9
+# Query_time: 0.000464  Lock_time: 0.000003 Rows_sent: 0  Rows_examined: 750
+SET timestamp=1791013254;
+SELECT * FROM rides WHERE chair_id IS NULL ORDER BY created_at LIMIT 1;
+# Time: 2026-10-03T07:40:54.692387Z
+# User@Host: isucon[isucon] @ localhost [127.0.0.1]  Id:     9
+# Query_time: 0.000488  Lock_time: 0.000003 Rows_sent: 0  Rows_examined: 750
+SET timestamp=1791013254;
+SELECT * FROM rides WHERE chair_id IS NULL ORDER BY created_at LIMIT 1;
+# Time: 2026-10-03T07:40:55.198952Z
+# User@Host: isucon[isucon] @ localhost [127.0.0.1]  Id:     9
+# Query_time: 0.000463  Lock_time: 0.000002 Rows_sent: 0  Rows_examined: 750
+SET timestamp=1791013255;
+SELECT * FROM rides WHERE chair_id IS NULL ORDER BY created_at LIMIT 1;
+# Time: 2026-10-03T07:40:55.705433Z
+# User@Host: isucon[isucon] @ localhost [127.0.0.1]  Id:     9
+# Query_time: 0.000477  Lock_time: 0.000002 Rows_sent: 0  Rows_examined: 750
+SET timestamp=1791013255;
+SELECT * FROM rides WHERE chair_id IS NULL ORDER BY created_at LIMIT 1;
+# Time: 2026-10-03T07:40:56.212230Z
+# User@Host: isucon[isucon] @ localhost [127.0.0.1]  Id:     9
+# Query_time: 0.000510  Lock_time: 0.000002 Rows_sent: 0  Rows_examined: 750
+SET timestamp=1791013256;
+SELECT * FROM rides WHERE chair_id IS NULL ORDER BY created_at LIMIT 1;
+# Time: 2026-10-03T07:40:56.718644Z
+# User@Host: isucon[isucon] @ localhost [127.0.0.1]  Id:     9
+# Query_time: 0.000472  Lock_time: 0.000002 Rows_sent: 0  Rows_examined: 750
+SET timestamp=1791013256;
+SELECT * FROM rides WHERE chair_id IS NULL ORDER BY created_at LIMIT 1;

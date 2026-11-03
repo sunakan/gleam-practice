@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# MISE description="escript / erlang-shipment / JS を dist/ 配下に生成"
+set -euo pipefail
+
+mkdir -p dist
+
+gleam export escript
+mv -f mysql_slowquerylog_duration dist/mysql_slowquerylog_duration
+
+gleam export erlang-shipment
+rm -rf dist/mysql_slowquerylog_duration_shipment
+cp -R build/erlang-shipment dist/mysql_slowquerylog_duration_shipment
+
+gleam build --target javascript
+rm -rf dist/mysql_slowquerylog_duration_js
+cp -R build/dev/javascript dist/mysql_slowquerylog_duration_js
+printf 'import { main } from "./mysql_slowquerylog_duration/mysql_slowquerylog_duration.mjs";\nmain();\n' > dist/mysql_slowquerylog_duration_js/main.mjs
