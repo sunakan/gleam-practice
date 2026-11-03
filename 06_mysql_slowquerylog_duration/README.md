@@ -1,24 +1,51 @@
 # mysql_slowquerylog_duration
 
-[![Package Version](https://img.shields.io/hexpm/v/mysql_slowquerylog_duration)](https://hex.pm/packages/mysql_slowquerylog_duration)
-[![Hex Docs](https://img.shields.io/badge/hex-docs-ffaff3)](https://mysql-slowquerylog-duration.hexdocs.pm/)
+## 概要
 
-```sh
-gleam add mysql_slowquerylog_duration@1
-```
-```gleam
-import mysql_slowquerylog_duration
+MySQL のスロークエリログを読み、記録されている期間（最初の時刻から最後の時刻まで）を出す
 
-pub fn main() -> Nil {
-  // TODO: An example of the project in use
-}
+
+## テスト
+
+```bash
+mise test
 ```
 
-Further documentation can be found at <https://mysql-slowquerylog-duration.hexdocs.pm/>.
+```bash
+mise e2e
+```
 
-## Development
+## ビルドと実行
 
-```sh
-gleam run   # Run the project
-gleam test  # Run the tests
+```bash
+mise build
+```
+
+```bash
+dist/mysql_slowquerylog_duration testdata/slow.log
+entries: 30
+start: 2026-10-03T07:40:43.106011Z
+end: 2026-10-03T07:40:56.718644Z
+duration: 13s
+skipped: 0
+```
+
+```bash
+node dist/mysql_slowquerylog_duration_js/main.mjs testdata/slow.log
+```
+
+## 入力
+
+`# Time: 2026-10-03T07:40:43.106011Z` の行（ISO 8601）を、エントリの区切りとして使う。
+時刻が読めないエントリは、壊れたエントリとして数えてスキップする（`skipped`）。
+差分は、秒未満を切り捨てて `1h2m3s` / `2m3s` / `3s` の形で出す。
+
+## ドキュメント
+
+```bash
+mise build-docs
+```
+
+```bash
+open dist/mysql_slowquerylog_duration_docs/index.html
 ```
