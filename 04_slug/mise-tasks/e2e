@@ -28,6 +28,12 @@ check() {
 }
 
 # check "名前" 期待する終了コード 期待する標準出力 期待する標準エラー "引数"
-# TODO: ケースを書く
+check "記号を除く" 0 "hello-world" "" "Hello, World!"
+check "連続する空白" 0 "gleam-is-fun" "" "Gleam is   fun"
+check "数字を残す" 0 "hello-world-2026" "" "Hello, World! 2026"
+check "区切りの連続と端" 0 "a-b" "" "--a--b--"
+check "日本語は区切り" 0 "a-b" "" "a日本語b"
+check "日本語のみは空" 0 "" "" "日本語"
+check "引数なしは使い方" 1 "" "使い方: slug <文章>..." ""
 
 exit "$failed"
