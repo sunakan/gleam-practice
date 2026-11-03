@@ -1,3 +1,4 @@
+import gleam/order
 import gleam/time/duration.{type Duration}
 import gleam/time/timestamp.{type Timestamp}
 
@@ -8,17 +9,20 @@ pub opaque type Period {
 }
 
 pub fn new(start: Timestamp, end: Timestamp) -> Result(Period, String) {
-  todo
+  case timestamp.compare(start, end) {
+    order.Lt | order.Eq -> Ok(Period(start: start, end: end))
+    order.Gt -> Error("start <= endである必要があります")
+  }
 }
 
 pub fn start(period: Period) -> Timestamp {
-  todo
+  period.start
 }
 
 pub fn end(period: Period) -> Timestamp {
-  todo
+  period.end
 }
 
 pub fn duration(period: Period) -> Duration {
-  todo
+  timestamp.difference(period.start, period.end)
 }
