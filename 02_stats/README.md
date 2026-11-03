@@ -1,24 +1,42 @@
 # stats
 
-[![Package Version](https://img.shields.io/hexpm/v/stats)](https://hex.pm/packages/stats)
-[![Hex Docs](https://img.shields.io/badge/hex-docs-ffaff3)](https://stats.hexdocs.pm/)
+## 概要
 
-```sh
-gleam add stats@1
-```
-```gleam
-import stats
+整数の列から、件数・合計・最小・最大・平均・中央値を出す
 
-pub fn main() -> Nil {
-  // TODO: An example of the project in use
-}
+
+## テスト
+
+```bash
+mise test
 ```
 
-Further documentation can be found at <https://stats.hexdocs.pm/>.
+```bash
+mise e2e
+```
 
-## Development
+## ビルドと実行
 
-```sh
-gleam run   # Run the project
-gleam test  # Run the tests
+```bash
+mise build
+```
+
+```bash
+dist/stats 3 1 4 1 5
+count: 5
+sum: 14
+min: 1
+max: 5
+mean: 2.8
+median: 3.0
+```
+
+```bash
+node dist/stats_js/main.mjs 1 2 3 4
+count: 4
+sum: 10
+min: 1
+max: 4
+mean: 2.5
+median: 2.5
 ```
