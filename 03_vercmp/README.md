@@ -1,24 +1,34 @@
 # vercmp
 
-[![Package Version](https://img.shields.io/hexpm/v/vercmp)](https://hex.pm/packages/vercmp)
-[![Hex Docs](https://img.shields.io/badge/hex-docs-ffaff3)](https://vercmp.hexdocs.pm/)
+## 概要
 
-```sh
-gleam add vercmp@1
-```
-```gleam
-import vercmp
+ドット区切りの数値バージョン（長さ不定）を比べて、`<` `=` `>` を出す
 
-pub fn main() -> Nil {
-  // TODO: An example of the project in use
-}
+
+## テスト
+
+```bash
+mise test
 ```
 
-Further documentation can be found at <https://vercmp.hexdocs.pm/>.
+```bash
+mise e2e
+```
 
-## Development
+## ビルドと実行
 
-```sh
-gleam run   # Run the project
-gleam test  # Run the tests
+```bash
+mise build
+```
+
+```bash
+dist/vercmp 1.2 1.10
+<
+dist/vercmp 1.2 1.2.0
+=
+```
+
+```bash
+node dist/vercmp_js/main.mjs 2 1.9.9.9
+>
 ```
