@@ -28,6 +28,24 @@ check() {
 }
 
 # check "名前" 期待する終了コード 期待する標準出力 期待する標準エラー "引数"
-# TODO: ケースを書く
+check "抜粋ログの集計" 0 "17 POST 200
+6 GET 200
+5 POST 400
+3 GET 403
+3 GET 499
+3 POST 404
+2 GET 404
+2 POST 401
+2 POST 499
+1 GET 401
+skipped: 0" "" "testdata/access.log"
+
+check "壊れた行と空行" 0 "2 GET 200
+1 POST 500
+skipped: 3" "" "testdata/broken.log"
+
+check "存在しないファイル" 1 "" "No such file or directory" "testdata/nothing.log"
+check "引数なしは使い方" 1 "" "使い方: nginx_accesslog <ログファイルのパス>" ""
+check "引数が多すぎる" 1 "" "使い方: nginx_accesslog <ログファイルのパス>" "a b"
 
 exit "$failed"

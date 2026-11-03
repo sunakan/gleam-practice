@@ -1,0 +1,7 @@
+method:GET	status:200	uri:/a
+method:GET	status:200	uri:/b
+
+method:POST	status:500	uri:/c
+method:GET
+method:GET	status:abc
+broken

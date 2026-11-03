@@ -1,3 +1,4 @@
+import argv
 import gleam/dict
 import gleam/int
 import gleam/io
@@ -7,6 +8,11 @@ import gleam/order
 import gleam/result
 import gleam/string
 import nginx_accesslog/ltsv
+import simplifile
+
+@external(erlang, "erlang", "halt")
+@external(javascript, "./nginx_accesslog_ffi.mjs", "halt")
+fn halt(code: Int) -> Nil
 
 // break_tieは、同順位(tie)の時、次の基準で決めるための関数
 /// 行のリストを `#(メソッド, ステータス)` 毎に数える
@@ -61,6 +67,36 @@ fn parse_entry(line: String) -> Result(#(String, Int), String) {
   Ok(#(method, status))
 }
 
+fn fail(message: String) -> Nil {
+  io.println_error(message)
+  halt(1)
+}
+
 pub fn main() -> Nil {
-  io.println("Hello from nginx_accesslog!")
+  case argv.load().arguments {
+    [path] -> {
+      case simplifile.read(path) {
+        Ok(text) -> {
+          let #(entry_and_counts, skipped) =
+            text
+            |> string.split("\n")
+            |> tally
+          entry_and_counts
+          |> list.each(fn(row) {
+            let #(count, method, status) = row
+            io.println(
+              int.to_string(count)
+              <> " "
+              <> method
+              <> " "
+              <> int.to_string(status),
+            )
+          })
+          io.println("skipped: " <> int.to_string(skipped))
+        }
+        Error(e) -> fail(simplifile.describe_error(e))
+      }
+    }
+    _ -> fail("使い方: nginx_accesslog <ログファイルのパス>")
+  }
 }
