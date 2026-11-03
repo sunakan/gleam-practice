@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# MISE description="escript / erlang-shipment / JS を dist/ 配下に生成"
+set -euo pipefail
+
+mkdir -p dist
+
+gleam export escript
+mv -f ipv4_parse_with_pbt dist/ipv4_parse_with_pbt
+
+gleam export erlang-shipment
+rm -rf dist/ipv4_parse_with_pbt_shipment
+cp -R build/erlang-shipment dist/ipv4_parse_with_pbt_shipment
+
+gleam build --target javascript
+rm -rf dist/ipv4_parse_with_pbt_js
+cp -R build/dev/javascript dist/ipv4_parse_with_pbt_js
+printf 'import { main } from "./ipv4_parse_with_pbt/ipv4_parse_with_pbt.mjs";\nmain();\n' > dist/ipv4_parse_with_pbt_js/main.mjs
