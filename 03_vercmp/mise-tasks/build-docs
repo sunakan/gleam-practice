@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# MISE description="gleam docs build で HTML ドキュメントを dist/vercmp_docs に生成"
+set -euo pipefail
+
+mkdir -p dist
+
+gleam docs build
+rm -rf dist/vercmp_docs
+cp -R build/dev/docs/vercmp dist/vercmp_docs
