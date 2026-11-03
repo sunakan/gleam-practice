@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# MISE description="gleam test を実行"
+set -euo pipefail
+
+gleam test

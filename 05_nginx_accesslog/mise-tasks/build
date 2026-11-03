@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# MISE description="escript / erlang-shipment / JS を dist/ 配下に生成"
+set -euo pipefail
+
+mkdir -p dist
+
+gleam export escript
+mv -f nginx_accesslog dist/nginx_accesslog
+
+gleam export erlang-shipment
+rm -rf dist/nginx_accesslog_shipment
+cp -R build/erlang-shipment dist/nginx_accesslog_shipment
+
+gleam build --target javascript
+rm -rf dist/nginx_accesslog_js
+cp -R build/dev/javascript dist/nginx_accesslog_js
+printf 'import { main } from "./nginx_accesslog/nginx_accesslog.mjs";\nmain();\n' > dist/nginx_accesslog_js/main.mjs
