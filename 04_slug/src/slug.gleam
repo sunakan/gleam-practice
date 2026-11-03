@@ -1,6 +1,11 @@
+import argv
 import gleam/io
 import gleam/list
 import gleam/string
+
+@external(erlang, "erlang", "halt")
+@external(javascript, "./slug_ffi.mjs", "halt")
+fn halt(code: Int) -> Nil
 
 /// 文章を URL に使える slug に変換する。
 /// 英数字以外の書記素は区切りとみなし、連続する区切りは `-` 1 つにまとめる。
@@ -36,5 +41,15 @@ fn collapse_separators(text: String) -> String {
 }
 
 pub fn main() -> Nil {
-  io.println("Hello from slug!")
+  case argv.load().arguments {
+    [] -> {
+      io.print_error("使い方: slug <文章>...")
+      halt(1)
+    }
+    arguments ->
+      arguments
+      |> string.join(" ")
+      |> slugify
+      |> io.println
+  }
 }
