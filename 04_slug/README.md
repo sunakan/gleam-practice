@@ -1,24 +1,44 @@
 # slug
 
-[![Package Version](https://img.shields.io/hexpm/v/slug)](https://hex.pm/packages/slug)
-[![Hex Docs](https://img.shields.io/badge/hex-docs-ffaff3)](https://slug.hexdocs.pm/)
+## 概要
 
-```sh
-gleam add slug@1
-```
-```gleam
-import slug
+文章を URL に使える slug（小文字の英数字をハイフンでつないだ文字列）に変える
 
-pub fn main() -> Nil {
-  // TODO: An example of the project in use
-}
+
+## テスト
+
+```bash
+mise test
 ```
 
-Further documentation can be found at <https://slug.hexdocs.pm/>.
+```bash
+mise e2e
+```
 
-## Development
+## ビルドと実行
 
-```sh
-gleam run   # Run the project
-gleam test  # Run the tests
+```bash
+mise build
+```
+
+```bash
+dist/slug 'Hello, World!'
+hello-world
+dist/slug Gleam is   fun
+gleam-is-fun
+```
+
+```bash
+node dist/slug_js/main.mjs 'Hello, World! 2026'
+hello-world-2026
+```
+
+## ドキュメント
+
+```bash
+mise build-docs
+```
+
+```bash
+open dist/slug_docs/index.html
 ```
