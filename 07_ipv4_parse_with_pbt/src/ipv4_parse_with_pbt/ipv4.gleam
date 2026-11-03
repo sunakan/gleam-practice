@@ -70,3 +70,13 @@ pub fn to_string(ip: Ipv4) -> String {
 pub fn octets(ip: Ipv4) -> #(Int, Int, Int, Int) {
   #(ip.a, ip.b, ip.c, ip.d)
 }
+
+pub fn error_to_string(error: Ipv4Error) -> String {
+  case error {
+    WrongOctetCount(n) -> "要素の数が4ではありません(" <> int.to_string(n) <> ")"
+    EmptyOctet -> "空の要素があります"
+    NotANumber(s) -> "数字ではありません: " <> s
+    LeadingZero(s) -> "先頭に0があります: " <> s
+    OutOfRange(n) -> "範囲外です: " <> int.to_string(n)
+  }
+}

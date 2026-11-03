@@ -104,6 +104,18 @@ fn result_to_string(
 }
 
 //
+// 単体テスト: エラー文
+//
+pub fn error_to_string_test() {
+  assert ipv4.error_to_string(WrongOctetCount(3))
+    == "要素の数が4ではありません(3)"
+  assert ipv4.error_to_string(EmptyOctet) == "空の要素があります"
+  assert ipv4.error_to_string(NotANumber("x")) == "数字ではありません: x"
+  assert ipv4.error_to_string(LeadingZero("01")) == "先頭に0があります: 01"
+  assert ipv4.error_to_string(OutOfRange(256)) == "範囲外です: 256"
+}
+
+//
 // PBT
 //
 // ①往復: parse → octets / to_string で元に戻せる
